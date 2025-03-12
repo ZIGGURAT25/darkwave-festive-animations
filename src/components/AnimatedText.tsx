@@ -1,10 +1,12 @@
 
 import React, { useEffect, useRef } from 'react';
 
+type ElementType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
+
 interface AnimatedTextProps {
   text: string;
   className?: string;
-  element?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
+  element?: ElementType;
   delay?: number;
   once?: boolean;
   animation?: 'fade-in' | 'slide-up' | 'slide-down' | 'scale-in' | 'blur-in';
@@ -14,7 +16,7 @@ interface AnimatedTextProps {
 const AnimatedText: React.FC<AnimatedTextProps> = ({
   text,
   className = '',
-  element: Element = 'div',
+  element = 'div',
   delay = 0,
   once = true,
   animation = 'slide-up',
@@ -132,10 +134,12 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
     return null;
   };
 
+  const Component = element as React.ElementType;
+  
   return (
-    <Element ref={textRef} className={className}>
+    <Component ref={textRef} className={className}>
       {renderContent()}
-    </Element>
+    </Component>
   );
 };
 

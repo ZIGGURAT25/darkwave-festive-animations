@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Tickets from "./pages/Tickets";
 import NotFound from "./pages/NotFound";
 import PageTransition from "./components/transitions/PageTransition";
+import ScrollProgress from "./components/animations/ScrollProgress";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollProgress />
         <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>

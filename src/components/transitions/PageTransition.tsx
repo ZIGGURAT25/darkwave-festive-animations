@@ -12,7 +12,10 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const [transitionStage, setTransitionStage] = useState('fadeIn');
 
   useEffect(() => {
-    if (location.pathname !== displayChildren.props.location.pathname) {
+    const childrenArray = React.Children.toArray(children);
+    const childrenElement = childrenArray[0] as React.ReactElement;
+    
+    if (location.pathname !== childrenElement?.props?.location?.pathname) {
       setTransitionStage('fadeOut');
       
       const timeout = setTimeout(() => {
@@ -26,8 +29,8 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
 
   return (
     <div
-      className={`transition-opacity duration-500 ${
-        transitionStage === 'fadeIn' ? 'opacity-100' : 'opacity-0'
+      className={`transition-all duration-500 ${
+        transitionStage === 'fadeIn' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
       {displayChildren}

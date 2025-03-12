@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, MapPin } from 'lucide-react';
 import AnimatedText from './AnimatedText';
+import RotatingText from './animations/RotatingText';
+import ParallaxLayer from './animations/ParallaxLayer';
 
 const HeroSection: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -38,8 +40,13 @@ const HeroSection: React.FC = () => {
     <section ref={heroRef} className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-24 pb-16">
       {/* Animated background elements */}
       <div className="absolute inset-0 w-full h-full">
-        <div className="absolute top-[10%] right-[15%] w-80 h-80 bg-festival-accent/10 rounded-full blur-[100px] parallax" data-speed-x="-20" data-speed-y="10"></div>
-        <div className="absolute bottom-[20%] left-[10%] w-96 h-96 bg-festival-highlight/10 rounded-full blur-[120px] parallax" data-speed-x="30" data-speed-y="-15"></div>
+        <ParallaxLayer speed={-0.2} className="absolute top-[10%] right-[15%]">
+          <div className="w-80 h-80 bg-festival-accent/10 rounded-full blur-[100px] parallax" data-speed-x="-20" data-speed-y="10"></div>
+        </ParallaxLayer>
+        
+        <ParallaxLayer speed={0.3} className="absolute bottom-[20%] left-[10%]">
+          <div className="w-96 h-96 bg-festival-highlight/10 rounded-full blur-[120px] parallax" data-speed-x="30" data-speed-y="-15"></div>
+        </ParallaxLayer>
       </div>
       
       {/* Grid decoration */}
@@ -60,14 +67,16 @@ const HeroSection: React.FC = () => {
           delay={0.2}
         />
         
-        <AnimatedText
-          text="THE ULTIMATE MUSIC EXPERIENCE"
-          element="p"
-          className="text-xl md:text-2xl lg:text-3xl text-white/80 font-light mb-8 tracking-wide"
-          animation="slide-up"
-          splitType="words"
-          delay={0.5}
-        />
+        <div className="text-xl md:text-2xl lg:text-3xl text-white/80 font-light mb-8 tracking-wide">
+          <RotatingText 
+            prefix="THE ULTIMATE " 
+            texts={["MUSIC EXPERIENCE", "ELECTRONIC FESTIVAL", "IMMERSIVE JOURNEY"]} 
+            className="text-xl md:text-2xl lg:text-3xl text-white/80 font-light tracking-wide"
+            typingSpeed={80}
+            deletingSpeed={40}
+            delayBetween={2000}
+          />
+        </div>
         
         <AnimatedText
           element="div"
@@ -76,22 +85,22 @@ const HeroSection: React.FC = () => {
           animation="fade-in"
           delay={1}
         >
-          <div className="glass-panel py-3 px-6 flex items-center gap-2">
+          <div className="glass-panel py-3 px-6 flex items-center gap-2 hover:bg-white/10 transition-colors duration-300">
             <Calendar className="text-festival-accent" size={20} />
             <span>October 15-17, 2024</span>
           </div>
-          <div className="glass-panel py-3 px-6 flex items-center gap-2">
+          <div className="glass-panel py-3 px-6 flex items-center gap-2 hover:bg-white/10 transition-colors duration-300">
             <MapPin className="text-festival-accent" size={20} />
             <span>Bangalore, India</span>
           </div>
         </AnimatedText>
         
         <div className="flex flex-col sm:flex-row gap-4 mt-6 opacity-0 animate-fade-in" style={{ animationDelay: '1.2s' }}>
-          <Link to="/tickets" className="button-primary">
-            Get Tickets <ArrowRight size={18} />
+          <Link to="/tickets" className="button-primary group">
+            Get Tickets <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-          <Link to="/lineup" className="button-secondary">
-            View Lineup
+          <Link to="/lineup" className="button-secondary group">
+            View Lineup <ArrowRight size={18} className="opacity-0 max-w-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[1.5rem] group-hover:ml-1" />
           </Link>
         </div>
       </div>
