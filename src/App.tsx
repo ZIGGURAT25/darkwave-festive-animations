@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import PageTransition from "./components/transitions/PageTransition";
 import ScrollProgress from "./components/animations/ScrollProgress";
 import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,8 @@ const AppRoutes = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </PageTransition>
+      <Toaster />
+      <Sonner />
     </>
   );
 };
@@ -40,8 +43,6 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
         <ScrollProgress />
         <AppRoutes />
       </TooltipProvider>
