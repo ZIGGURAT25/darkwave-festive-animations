@@ -9,7 +9,6 @@ import Lineup from "./pages/Lineup";
 import About from "./pages/About";
 import Tickets from "./pages/Tickets";
 import NotFound from "./pages/NotFound";
-import Navbar from "./components/Navbar";
 import PageTransition from "./components/transitions/PageTransition";
 import ScrollProgress from "./components/animations/ScrollProgress";
 
@@ -19,18 +18,15 @@ const AppRoutes = () => {
   const location = useLocation();
 
   return (
-    <>
-      <Navbar />
-      <PageTransition>
-        <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/lineup" element={<Lineup />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/tickets" element={<Tickets />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </PageTransition>
-    </>
+    <PageTransition>
+      <Routes location={location}>
+        <Route path="/" element={<Index />} />
+        <Route path="/lineup" element={<Lineup />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/tickets" element={<Tickets />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </PageTransition>
   );
 };
 
