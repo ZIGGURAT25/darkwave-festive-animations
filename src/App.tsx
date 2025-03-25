@@ -13,7 +13,7 @@ import NotFound from "./pages/NotFound";
 import PageTransition from "./components/transitions/PageTransition";
 import ScrollProgress from "./components/animations/ScrollProgress";
 import Navbar from "./components/Navbar";
-import Header from "./components/Header";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 // Create the query client outside of the component
 const queryClient = new QueryClient();
@@ -44,14 +44,14 @@ const AppRoutes = () => {
 // The main App component with providers properly ordered
 const App = () => {
   return (
-    <React.StrictMode>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
           <ScrollProgress />
           <AppRoutes />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </React.StrictMode>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 };
 
