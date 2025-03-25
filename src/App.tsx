@@ -14,7 +14,6 @@ import PageTransition from "./components/transitions/PageTransition";
 import ScrollProgress from "./components/animations/ScrollProgress";
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
-import React from "react";
 
 // Create the query client outside of the component
 const queryClient = new QueryClient();
@@ -46,14 +45,12 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <BrowserRouter>
-      <React.StrictMode>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <ScrollProgress />
-            <AppRoutes />
-          </TooltipProvider>
-        </QueryClientProvider>
-      </React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <ScrollProgress />
+          <AppRoutes />
+        </TooltipProvider>
+      </QueryClientProvider>
     </BrowserRouter>
   );
 };
