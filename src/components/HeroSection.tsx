@@ -78,13 +78,7 @@ const HeroSection: React.FC = () => {
           />
         </div>
         
-        <AnimatedText
-          element="div"
-          text=""
-          className="flex flex-wrap justify-center items-center gap-4 mb-10 opacity-0 animate-fade-in"
-          animation="fade-in"
-          delay={1}
-        >
+        <div className="flex flex-wrap justify-center items-center gap-4 mb-10 opacity-0 animate-fade-in" style={{ animationDelay: '1s' }}>
           <div className="glass-panel py-3 px-6 flex items-center gap-2 hover:bg-white/10 transition-colors duration-300">
             <Calendar className="text-festival-accent" size={20} />
             <span>October 15-17, 2024</span>
@@ -93,7 +87,7 @@ const HeroSection: React.FC = () => {
             <MapPin className="text-festival-accent" size={20} />
             <span>Bangalore, India</span>
           </div>
-        </AnimatedText>
+        </div>
         
         <div className="flex flex-col sm:flex-row gap-4 mt-6 opacity-0 animate-fade-in" style={{ animationDelay: '1.2s' }}>
           <Link to="/tickets" className="button-primary group">
