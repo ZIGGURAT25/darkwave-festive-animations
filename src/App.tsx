@@ -12,6 +12,7 @@ import Registration from "./pages/Registration";
 import NotFound from "./pages/NotFound";
 import PageTransition from "./components/transitions/PageTransition";
 import ScrollProgress from "./components/animations/ScrollProgress";
+import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -19,16 +20,19 @@ const AppRoutes = () => {
   const location = useLocation();
 
   return (
-    <PageTransition>
-      <Routes location={location}>
-        <Route path="/" element={<Index />} />
-        <Route path="/lineup" element={<Lineup />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/tickets" element={<Tickets />} />
-        <Route path="/registration" element={<Registration />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </PageTransition>
+    <>
+      <Navbar />
+      <PageTransition>
+        <Routes location={location}>
+          <Route path="/" element={<Index />} />
+          <Route path="/lineup" element={<Lineup />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </PageTransition>
+    </>
   );
 };
 
