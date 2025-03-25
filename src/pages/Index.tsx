@@ -1,13 +1,13 @@
 
 import React, { useEffect } from 'react';
-import HeroSection from '../components/HeroSection';
+import Header from '../components/Header';
 import LineupGrid from '../components/LineupGrid';
 import Footer from '../components/Footer';
-import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/animations/ScrollReveal';
 import ParallaxLayer from '../components/animations/ParallaxLayer';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import AnimatedText from '../components/AnimatedText';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -16,7 +16,31 @@ const Index: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-festival-darker">
-      <HeroSection />
+      <div className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-24 pb-16">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 w-full h-full">
+          <ParallaxLayer speed={-0.2} className="absolute top-[10%] right-[15%]">
+            <div className="w-80 h-80 bg-festival-accent/10 rounded-full blur-[100px]"></div>
+          </ParallaxLayer>
+          
+          <ParallaxLayer speed={0.3} className="absolute bottom-[20%] left-[10%]">
+            <div className="w-96 h-96 bg-festival-highlight/10 rounded-full blur-[120px]"></div>
+          </ParallaxLayer>
+        </div>
+        
+        {/* Grid decoration */}
+        <div className="absolute inset-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYwOCIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PC9wYXR0ZXJuPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiPjwvcmVjdD48L3N2Zz4=')]" style={{ opacity: 0.4 }}></div>
+        
+        <Header />
+        
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in" style={{ animationDelay: '2s' }}>
+          <span className="text-white/60 text-sm mb-2">Scroll to explore</span>
+          <div className="w-5 h-9 border-2 border-white/20 rounded-full flex justify-center">
+            <div className="w-1 h-2 bg-white/60 rounded-full mt-1 animate-[bounce_1.5s_infinite]"></div>
+          </div>
+        </div>
+      </div>
       
       <section className="py-20 px-6 md:px-10 relative overflow-hidden">
         <ParallaxLayer speed={-0.2} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
