@@ -1,94 +1,79 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useMobile } from '@/hooks/use-mobile';
 
 const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Handle scroll effect
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const isMobile = useMobile();
+  const location = useLocation();
+  
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      const offset = window.scrollY;
+      setScrolled(offset > 50);
     };
-
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
+  
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+  
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4 px-6 md:px-10 
-      ${isScrolled ? 'bg-festival-darker/90 backdrop-blur-lg' : 'bg-transparent'}`}
+    <nav 
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled || isOpen ? 'bg-black/80 backdrop-blur-lg' : 'bg-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link 
-          to="/" 
-          className="text-2xl font-display font-bold text-white tracking-tight"
-        >
-          RECHARGE<span className="text-festival-accent">FEST</span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/lineup" className="nav-link">Lineup</Link>
-          <Link to="/about" className="nav-link">About</Link>
-          <Link to="/tickets" className="button-primary">Get Tickets</Link>
-        </nav>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-white"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="text-2xl font-display font-bold text-white">
+            RECHARGE<span className="text-festival-accent">FEST</span>
+          </Link>
+          
+          {isMobile ? (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-white"
+            >
+              {isOpen ? <X /> : <Menu />}
+            </Button>
+          ) : (
+            <div className="flex items-center space-x-8">
+              <Link to="/" className="nav-link">HOME</Link>
+              <Link to="/lineup" className="nav-link">LINEUP</Link>
+              <Link to="/about" className="nav-link">ABOUT</Link>
+              <Link to="/tickets" className="nav-link">TICKETS</Link>
+              <Link to="/registration" className="nav-link">REGISTRATION</Link>
+              <Button asChild className="button-primary">
+                <Link to="/tickets">GET TICKETS</Link>
+              </Button>
+            </div>
+          )}
+        </div>
+        
+        {isMobile && isOpen && (
+          <div className="pt-6 pb-4 flex flex-col space-y-4">
+            <Link to="/" className="nav-link text-xl">HOME</Link>
+            <Link to="/lineup" className="nav-link text-xl">LINEUP</Link>
+            <Link to="/about" className="nav-link text-xl">ABOUT</Link>
+            <Link to="/tickets" className="nav-link text-xl">TICKETS</Link>
+            <Link to="/registration" className="nav-link text-xl">REGISTRATION</Link>
+            <Button asChild className="button-primary w-full mt-4">
+              <Link to="/tickets">GET TICKETS</Link>
+            </Button>
+          </div>
+        )}
       </div>
-
-      {/* Mobile Navigation */}
-      <div
-        className={`fixed inset-0 bg-festival-darker z-40 transition-all duration-500 md:hidden
-          ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-        style={{ top: '60px' }}
-      >
-        <nav className="flex flex-col items-center justify-center h-full space-y-8 p-8">
-          <Link 
-            to="/" 
-            className="text-2xl nav-link" 
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Home
-          </Link>
-          <Link 
-            to="/lineup" 
-            className="text-2xl nav-link" 
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Lineup
-          </Link>
-          <Link 
-            to="/about" 
-            className="text-2xl nav-link" 
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            About
-          </Link>
-          <Link 
-            to="/tickets" 
-            className="button-primary text-xl px-8 py-4" 
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Get Tickets
-          </Link>
-        </nav>
-      </div>
-    </header>
+    </nav>
   );
 };
 

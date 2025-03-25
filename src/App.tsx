@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Lineup from "./pages/Lineup";
 import About from "./pages/About";
 import Tickets from "./pages/Tickets";
+import Registration from "./pages/Registration";
 import NotFound from "./pages/NotFound";
 import PageTransition from "./components/transitions/PageTransition";
 import ScrollProgress from "./components/animations/ScrollProgress";
@@ -24,6 +25,7 @@ const AppRoutes = () => {
         <Route path="/lineup" element={<Lineup />} />
         <Route path="/about" element={<About />} />
         <Route path="/tickets" element={<Tickets />} />
+        <Route path="/registration" element={<Registration />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </PageTransition>
