@@ -14,9 +14,12 @@ import PageTransition from "./components/transitions/PageTransition";
 import ScrollProgress from "./components/animations/ScrollProgress";
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
+import React from "react";
 
+// Create the query client outside of the component
 const queryClient = new QueryClient();
 
+// Component for routes to allow hooks to work properly within Router context
 const AppRoutes = () => {
   const location = useLocation();
 
@@ -39,15 +42,20 @@ const AppRoutes = () => {
   );
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
+// The main App component with providers properly ordered
+const App = () => {
+  return (
     <BrowserRouter>
-      <TooltipProvider>
-        <ScrollProgress />
-        <AppRoutes />
-      </TooltipProvider>
+      <React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <ScrollProgress />
+            <AppRoutes />
+          </TooltipProvider>
+        </QueryClientProvider>
+      </React.StrictMode>
     </BrowserRouter>
-  </QueryClientProvider>
-);
+  );
+};
 
 export default App;
